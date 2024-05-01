@@ -562,6 +562,20 @@ const terminalsRoutesPlugin: JupyterLiteServerPlugin<void> = {
   autoStart: true,
   requires: [ITerminals],
   activate: (app: JupyterLiteServer, terminals: ITerminals) => {
+    // GET /api/terminals - List the running terminals
+    app.router.get('/api/terminals', async (req: Router.IRequest) => {
+      const res = terminals.list();
+      return new Response(JSON.stringify(res));
+    });
+
+    // POST /api/terminals - Start a terminal
+    app.router.post(
+      '/api/terminals',
+      async (req: Router.IRequest) => {
+        const res = await terminals.startNew();
+        return new Response(JSON.stringify(res));
+      },
+    );
   },
 };
 
