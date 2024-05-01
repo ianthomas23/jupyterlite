@@ -32,7 +32,8 @@
   },
   "dependencies": {
     "@jupyterlab/coreutils": "~6.1.5",
-    "@lumino/coreutils": "^2.1.2"
+    "@lumino/coreutils": "^2.1.2",
+    "mock-socket": "^9.1.0"
   },
   "devDependencies": {
     "typescript": "~5.1.6"

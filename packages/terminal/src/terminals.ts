@@ -14,7 +14,8 @@ export class Terminals implements ITerminals {
   /**
    * Construct a new Terminals object.
    */
-  constructor() {
+  constructor(wsUrl: string) {
+    this._wsUrl = wsUrl;
     console.log("==> Terminals.constructor");
   }
 
@@ -22,10 +23,11 @@ export class Terminals implements ITerminals {
    * List the running terminals.
    */
   async list(): Promise<TerminalAPI.IModel[]> {
-    console.log("==> Terminals.list");
-    return [...this._terminals.values()].map((terminal) => ({
+    const ret = [...this._terminals.values()].map((terminal) => ({
       name: terminal.name,
     }));
+    console.log("==> Terminals.list", ret);
+    return ret;
   }
 
   /**
@@ -36,6 +38,10 @@ export class Terminals implements ITerminals {
     console.log("==> Terminals.new", name);
     const term = new Terminal({ name });
     this._terminals.set(name, term);
+
+    const url = `${this._wsUrl}terminals/websocket/${name}`;
+    await term.wsConnect(url);
+
     return { name };
   }
 
@@ -48,5 +54,6 @@ export class Terminals implements ITerminals {
     }
   }
 
+  private _wsUrl: string;
   private _terminals: Map<string, Terminal> = new Map();
 }
