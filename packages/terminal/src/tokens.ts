@@ -24,3 +24,28 @@ export interface ITerminals {
    */
   startNew: () => Promise<TerminalAPI.IModel>;
 }
+
+/**
+ * An interface for a server-side terminal running in the browser.
+ */
+export interface ITerminal {
+  /**
+   * The name of the server-side terminal.
+   */
+  readonly name: string;
+}
+
+/**
+ * A namespace for ITerminal statics.
+ */
+export namespace ITerminal {
+  /**
+   * The instantiation options for an ITerminal.
+   */
+  export interface IOptions {
+    /**
+     * The name of the terminal.
+     */
+    name: string;
+  }
+}

@@ -569,13 +569,10 @@ const terminalsRoutesPlugin: JupyterLiteServerPlugin<void> = {
     });
 
     // POST /api/terminals - Start a terminal
-    app.router.post(
-      '/api/terminals',
-      async (req: Router.IRequest) => {
-        const res = await terminals.startNew();
-        return new Response(JSON.stringify(res));
-      },
-    );
+    app.router.post('/api/terminals', async (req: Router.IRequest) => {
+      const res = await terminals.startNew();
+      return new Response(JSON.stringify(res));
+    });
   },
 };
 
