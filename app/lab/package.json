@@ -97,6 +97,7 @@
     "@jupyterlite/notebook-application-extension": "~0.4.0-alpha.3",
     "@jupyterlite/server": "~0.4.0-alpha.3",
     "@jupyterlite/server-extension": "~0.4.0-alpha.3",
+    "@jupyterlite/terminal": "~0.3.0",
     "@jupyterlite/types": "~0.4.0-alpha.3",
     "@jupyterlite/ui-components": "~0.4.0-alpha.3",
     "@lezer/common": "^1.2.1",

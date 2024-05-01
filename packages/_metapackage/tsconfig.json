@@ -18,6 +18,7 @@
     { "path": "../server-extension" },
     { "path": "../session" },
     { "path": "../settings" },
+    { "path": "../terminal" },
     { "path": "../translation" },
     { "path": "../types" },
     { "path": "../ui-components" }

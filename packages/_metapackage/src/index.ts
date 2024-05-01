@@ -11,5 +11,6 @@ import '@jupyterlite/server';
 import '@jupyterlite/server-extension';
 import '@jupyterlite/session';
 import '@jupyterlite/settings';
+import '@jupyterlite/terminal';
 import '@jupyterlite/types';
 import '@jupyterlite/ui-components';

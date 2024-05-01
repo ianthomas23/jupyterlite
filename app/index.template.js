@@ -42,6 +42,9 @@ export async function main() {
   const litePluginsToRegister = [];
   const liteExtensionPromises = [];
 
+  // Enable terminals. Should probably be in a config file instead.
+  PageConfig.setOption('terminalsAvailable', 'true')
+
   // This is all the data needed to load and activate plugins. This should be
   // gathered by the server and put onto the initial page template.
   const extensions = JSON.parse(

@@ -15,6 +15,7 @@
     "packages/server-extension",
     "packages/session",
     "packages/settings",
+    "packages/terminal",
     "packages/translation",
     "packages/types",
     "packages/ui-components"

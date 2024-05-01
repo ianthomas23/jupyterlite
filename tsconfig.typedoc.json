@@ -49,6 +49,9 @@
       "path": "./packages/settings"
     },
     {
+      "path": "./packages/terminal"
+    },
+    {
       "path": "./packages/translation"
     },
     {

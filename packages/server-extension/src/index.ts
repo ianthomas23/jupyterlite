@@ -28,6 +28,8 @@ import { ISessions, Sessions } from '@jupyterlite/session';
 
 import { ISettings, Settings } from '@jupyterlite/settings';
 
+import { ITerminals, Terminals } from '@jupyterlite/terminal';
+
 import { ITranslation, Translation } from '@jupyterlite/translation';
 
 import { ILocalForage, ensureMemoryStorage } from '@jupyterlite/localforage';
@@ -541,7 +543,30 @@ const settingsRoutesPlugin: JupyterLiteServerPlugin<void> = {
 };
 
 /**
- * The translation service plugin.
+ * The terminals service plugin.
+ */
+const terminalsPlugin: JupyterLiteServerPlugin<ITerminals> = {
+  id: '@jupyterlite/server-extension:terminals',
+  autoStart: true,
+  provides: ITerminals,
+  activate: (app: JupyterLiteServer) => {
+    return new Terminals();
+  },
+};
+
+/**
+ * A plugin providing the routes for the terminals service
+ */
+const terminalsRoutesPlugin: JupyterLiteServerPlugin<void> = {
+  id: '@jupyterlite/server-extension:terminals-routes',
+  autoStart: true,
+  requires: [ITerminals],
+  activate: (app: JupyterLiteServer, terminals: ITerminals) => {
+  },
+};
+
+/**
+* The translation service plugin.
  */
 const translationPlugin: JupyterLiteServerPlugin<ITranslation> = {
   id: '@jupyterlite/server-extension:translation',
@@ -603,6 +628,8 @@ const plugins: JupyterLiteServerPlugin<any>[] = [
   sessionsRoutesPlugin,
   settingsPlugin,
   settingsRoutesPlugin,
+  terminalsPlugin,
+  terminalsRoutesPlugin,
   translationPlugin,
   translationRoutesPlugin,
 ];
