@@ -1778,6 +1778,16 @@ __metadata:
   version: 1.0.3
   resolution: "@inquirer/figures@npm:1.0.3"
   checksum: ca83d9e2a02ed5309b3df5642d2194fde24e6f89779339c63304f2570f36f3bc431236a93db7fa412765a06f01c765974b06b1ed8b9aed881be46f2cbb67f9c7
+
+"@ianthomas23/cockle@file:/Users/iant/github/cockle/ianthomas23-cockle-0.0.1.tgz::locator=%40jupyterlite%2Fterminal%40workspace%3Apackages%2Fterminal":
+  version: 0.0.1
+  resolution: "@ianthomas23/cockle@file:/Users/iant/github/cockle/ianthomas23-cockle-0.0.1.tgz::locator=%40jupyterlite%2Fterminal%40workspace%3Apackages%2Fterminal"
+  dependencies:
+    "@jupyterlab/services": ^7.1.6
+  dependenciesMeta:
+    "@jupyterlab/services":
+      optional: true
+  checksum: 7e02974c2e93bc883bdd1a21948071d583a96c6ca700dd6991957f1f8976047eed48264b47329ac9258c1718c3be059f5e6f19022991d8e94981374783fd0e4c
   languageName: node
   linkType: hard
 
@@ -4876,6 +4886,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jupyterlite/terminal@workspace:packages/terminal"
   dependencies:
+    "@ianthomas23/cockle": /Users/iant/github/cockle/ianthomas23-cockle-0.0.1.tgz
     "@jupyterlab/coreutils": ~6.1.5
     "@lumino/coreutils": ^2.1.2
     mock-socket: ^9.1.0

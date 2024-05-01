@@ -31,6 +31,7 @@
     "watch": "tsc -b --watch"
   },
   "dependencies": {
+    "@ianthomas23/cockle": "/Users/iant/github/cockle/ianthomas23-cockle-0.0.1.tgz",
     "@jupyterlab/coreutils": "~6.1.5",
     "@lumino/coreutils": "^2.1.2",
     "mock-socket": "^9.1.0"

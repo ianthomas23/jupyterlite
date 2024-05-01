@@ -1,6 +1,8 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
+import { JupyterFileSystem } from "@ianthomas23/cockle";
+
 import { JSONPrimitive } from '@lumino/coreutils';
 
 import { Server as WebSocketServer, Client as WebSocketClient } from 'mock-socket';
@@ -13,7 +15,8 @@ export class Terminal implements ITerminal {
    */
   constructor(options: ITerminal.IOptions) {
     this._name = options.name;
-    console.log("==> new Terminal", name);
+    const jfs = new JupyterFileSystem(options.contentsManager);
+    console.log("==> new Terminal", name, jfs);
   }
 
   /**

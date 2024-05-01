@@ -1,7 +1,7 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
-import { TerminalAPI } from '@jupyterlab/services';
+import { Contents, TerminalAPI } from '@jupyterlab/services';
 
 import { Token } from '@lumino/coreutils';
 
@@ -47,5 +47,7 @@ export namespace ITerminal {
      * The name of the terminal.
      */
     name: string;
+
+    contentsManager: Contents.IManager;
   }
 }

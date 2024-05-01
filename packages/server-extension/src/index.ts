@@ -551,8 +551,8 @@ const terminalsPlugin: JupyterLiteServerPlugin<ITerminals> = {
   provides: ITerminals,
   activate: (app: JupyterLiteServer) => {
     const { serviceManager } = app;
-    const { serverSettings } = serviceManager;
-    return new Terminals(serverSettings.wsUrl);
+    const { contents, serverSettings } = serviceManager;
+    return new Terminals(serverSettings.wsUrl, contents);
   },
 };
 

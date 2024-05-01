@@ -1,7 +1,7 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
-import { TerminalAPI } from '@jupyterlab/services';
+import { Contents, TerminalAPI } from '@jupyterlab/services';
 
 import { Terminal } from './terminal';
 
@@ -14,8 +14,9 @@ export class Terminals implements ITerminals {
   /**
    * Construct a new Terminals object.
    */
-  constructor(wsUrl: string) {
+  constructor(wsUrl: string, contentsManager: Contents.IManager) {
     this._wsUrl = wsUrl;
+    this._contentsManager = contentsManager;
     console.log("==> Terminals.constructor");
   }
 
@@ -36,7 +37,7 @@ export class Terminals implements ITerminals {
   async startNew(): Promise<TerminalAPI.IModel> {
     const name = this._nextAvailableName();
     console.log("==> Terminals.new", name);
-    const term = new Terminal({ name });
+    const term = new Terminal({ name, contentsManager: this._contentsManager });
     this._terminals.set(name, term);
 
     const url = `${this._wsUrl}terminals/websocket/${name}`;
@@ -55,5 +56,6 @@ export class Terminals implements ITerminals {
   }
 
   private _wsUrl: string;
+  private _contentsManager: Contents.IManager;
   private _terminals: Map<string, Terminal> = new Map();
 }
