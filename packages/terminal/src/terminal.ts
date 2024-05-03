@@ -1,7 +1,7 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
-import { JupyterFileSystem } from "@ianthomas23/cockle";
+import { JupyterFileSystem, Shell, IFileSystem } from "@ianthomas23/cockle";
 
 import { JSONPrimitive } from '@lumino/coreutils';
 
@@ -15,8 +15,8 @@ export class Terminal implements ITerminal {
    */
   constructor(options: ITerminal.IOptions) {
     this._name = options.name;
-    const jfs = new JupyterFileSystem(options.contentsManager);
-    console.log("==> new Terminal", name, jfs);
+    this._fs = new JupyterFileSystem(options.contentsManager);
+    console.log("==> new Terminal", this._name, this._fs);
   }
 
   /**
@@ -32,41 +32,50 @@ export class Terminal implements ITerminal {
     const server = new WebSocketServer(url, { mock: false });
 
     server.on('connection', async (socket: WebSocketClient) => {
-      console.log("SERVER CONNECTION", this, socket);
+      console.log("==> server connection", this, socket);
+
+      const outputCallback = async (output: string) => {
+        console.log("==> recv from shell:", output);
+        const ret = JSON.stringify(['stdout', output]);
+        socket.send(ret);
+      }
+
+      this._shell = new Shell(this._fs, outputCallback);
+      console.log("==> shell", this._shell);
 
       socket.on('message', async (message: any) => {
-        // might be a 'set-size' message.
         const data = JSON.parse(message) as JSONPrimitive[];
-        console.log("SOCKET MESSAGE", data);
+        console.log("==> socket message", data);
         const message_type = data[0];
         const content = data.slice(1);
 
         if (message_type == 'stdin') {
-            // send this to shell. Later get returned string.
-            // echo character back...
-            let char = content[0];  // Can this be more than one character?
-            if (char == '\r') {
-              char = '\n\r';
-            }
-            const ret = JSON.stringify(['stdout', char]);
-            socket.send(ret);
-          }
+          await this._shell!.input(content[0] as string);
+        } else if (message_type == 'set_size') {
+          const rows = content[0] as number;
+          const columns = content[1] as number;
+          await this._shell!.setSize(rows, columns);
+        }
       });
 
       socket.on('close', async () => {
-        console.log("SOCKET CLOSE");
+        console.log("==> socket close");
       });
 
       socket.on('error', async () => {
-        console.log("SOCKET ERROR");
+        console.log("==> socket error");
       });
 
       // Return handshake.
       const res = JSON.stringify(['setup']);
-      console.log("Returning handshake via socket", res);
+      console.log("==> Returning handshake via socket", res);
       socket.send(res);
+
+      await this._shell!.start();
     });
   }
 
   private _name: string;
+  private _fs: IFileSystem;
+  private _shell?: Shell;
 }
